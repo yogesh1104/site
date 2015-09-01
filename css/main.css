@@ -58,7 +58,7 @@ body {
 }
 
 #footer{
-    margin-top: 50px;   
+    margin-top: 50px;
 }
 
 img.details{
@@ -76,4 +76,10 @@ img.details{
 .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a:focus {
   color: #d9d9d9;
   background-color: #000000;
+}
+
+.table-auto {
+ width: auto;
+ margin: 0 auto;
+    
 }
