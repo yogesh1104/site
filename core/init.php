@@ -5,3 +5,5 @@ if(mysqli_connect_errno()){
     die();    
 }
 
+require_once '../config.php';
+require_once BASEURL.'helpers/helpers.php';
