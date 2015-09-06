@@ -6,6 +6,15 @@
     $sql="SELECT * FROM categories WHERE parent=0";
     $result = $db->query($sql);
     $errors = array();
+    
+    //delete category
+    if(isset($_GET['delete']) && !empty($_GET['delete'])){
+        $delete_id = $_GET['delete'];
+        $delete_id = sanitize($delete_id);
+        $dsql = "DELETE FROM categories WHERE id = '$delete_id' OR parent = '$delete_id'";
+        $db->query($dsql);
+        header('Location: categories.php');
+    }
 
     //process form
     if(isset($_POST) && !empty($_POST)){
