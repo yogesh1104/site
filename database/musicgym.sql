@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 06, 2015 at 04:28 PM
+-- Generation Time: Sep 19, 2015 at 04:28 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -99,6 +99,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `image` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `featured` tinyint(4) NOT NULL DEFAULT '0',
+  `deleted` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
 
@@ -106,9 +107,9 @@ CREATE TABLE IF NOT EXISTS `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `featured`) VALUES
-(1, 'Gibson LP Less', '1390', '1500', 1, '31', '/site/images/products/Electric Guitar Gibson LP Less.jpg', 'Gibson Les Paul Less+ HCS 2015, electric guitar, G-Force tuning system, mahogany body, maple top, mahogany neck, rounded thomann C neck profile, rosewood fretboard, trapez inlays, 22 frets, 628mm scale, 46mm nut width, 1x 57 Classic and 57 Plus humbuckers, toggle switch, 2x volume and 1x tone controls, mini toggle coil split, nickel Tune-o-Matic bridge, finish: heritage cherry sunburst, incl. case, incl. thomann G-Force charger', 1),
-(2, 'Epiphone Les Paul', '318', '400', 2, '31', '/site/images/products/Electric Guitar Epiphone Les Paul Standard.jpg', 'Epiphone Les Paul Standard Ebony , electric guitar, mahognay body, mahogany neck, rosewood fretboard, 42,67 mm saddle width, thomann 628 mm scale lenght, 2x alnico classic humbucking pick-ups, Grover tuners, chrome hardware, trapez inlays, colour: ebony', 1);
+INSERT INTO `products` (`id`, `title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `featured`, `deleted`) VALUES
+(1, 'Gibson LP Less', '1390', '1500', 1, '31', '/site/images/products/Electric Guitar Gibson LP Less.jpg', 'Gibson Les Paul Less+ HCS 2015, electric guitar, G-Force tuning system, mahogany body, maple top, mahogany neck, rounded thomann C neck profile, rosewood fretboard, trapez inlays, 22 frets, 628mm scale, 46mm nut width, 1x 57 Classic and 57 Plus humbuckers, toggle switch, 2x volume and 1x tone controls, mini toggle coil split, nickel Tune-o-Matic bridge, finish: heritage cherry sunburst, incl. case, incl. thomann G-Force charger', 1, 0),
+(2, 'Epiphone Les Paul', '318', '400', 2, '31', '/site/images/products/Electric Guitar Epiphone Les Paul Standard.jpg', 'Epiphone Les Paul Standard Ebony , electric guitar, mahognay body, mahogany neck, rosewood fretboard, 42,67 mm saddle width, thomann 628 mm scale lenght, 2x alnico classic humbucking pick-ups, Grover tuners, chrome hardware, trapez inlays, colour: ebony', 1, 0);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
