@@ -3,6 +3,13 @@
     <footer class="text-center" id="footer">&copy; Copyright 2015 Music Gym</footer>
         
     <script>
+        function updateQuantity(){
+            var quantityString = '';
+            quantityString+=$('#quantity').val();
+            $('#qty_prev').val(quantityString);
+            
+        }
+        
         function get_child_options(){
             var parentID = $('#parent').val();
             $.ajax({

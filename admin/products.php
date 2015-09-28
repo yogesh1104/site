@@ -5,7 +5,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
     if(isset($_GET['add'])) {
     $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
     $parentQuery = $db->query("SELECT * FROM categories WHERE parent = 0 ORDER BY category");
-        ?>
+   
+    ?>
     <h2 class="text-center">Add a new product</h2><hr>
     <form action="products.php?add=1" method="POST" enctype="multipart/form-data">
         <div class="form-group col-md-3">
@@ -51,7 +52,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
         </div>
         <div class="form-group col-md-3">
             <label for="quantity">Quantity Preview</label>
-            <input class="form-control" type="text" name="quantity" id="quantity" value="" readonly>
+            <input class="form-control" type="text" name="qty_prev" id="qty_prev" value="" readonly>
         </div>
         <div class="form-group col-md-6">
             <label for="photo">Product Photo:</label>
@@ -65,6 +66,24 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
             <input type="submit" value="Add product" class="form-control btn btn-success">
         </div><div class="clearfix"></div>    
     </form>
+        <!-- Modal -->
+    <div class="modal fade" id="quantityModal" tabindex="-1" role="dialog" aria-labelledby="quantityModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+         
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="quantityModalLabel">Quantity</h4>       
+          <div class="modal-body">             
+                <label for="quantity">Quantity</label>
+                <input type="number" name="quantity" id="quantity" value="" min="0" class="form-control">            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="updateQuantity();$('#quantityModal').modal('toggle'); return false;">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
     
     <?php }else{
     $sql = "SELECT * FROM products WHERE deleted = 0";
