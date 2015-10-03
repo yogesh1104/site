@@ -5,7 +5,62 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
     if(isset($_GET['add'])) {
     $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
     $parentQuery = $db->query("SELECT * FROM categories WHERE parent = 0 ORDER BY category");
-   
+   if($_POST){
+      $title = sanitize($_POST['title']);
+      $brand = sanitize($_POST['brand']);
+      $price = sanitize($_POST['price']);
+      $list_price = sanitize($_POST['list_price']);
+      $categories = sanitize($_POST['child']);
+      $quantity = sanitize($_POST['quantity']);
+      $description = sanitize($_POST['description']);
+      $dbPath = '';
+      $errors = array();
+      $required = array('title', 'brand', 'parent', 'child', 'quantity');
+      foreach($required as $field){
+          if($_POST[$field]==''){
+           $errors[] = "All fields with an asterisk are required.";
+           break;
+          }
+      }
+    if(!empty($_FILES)){
+        var_dump($_FILES);
+        $photo = $_FILES['photo'];
+        $name = $photo['name'];
+        $nameArray = explode('.',$name);
+        $fileName = $nameArray[0];
+        $fileExt = $nameArray[1];
+        $mime = explode('/',$photo['type']);
+        $mimeType = $mime[0];
+        $mimeExt =  $mime[1];
+        $tmpLoc = $photo['tmp_name'];
+        $fileSize = $photo['size'];
+        $allowed = array('png','jpg','jpeg','gif');        
+        $uploadName = md5(microtime()).'.'.$fileExt;
+        $uploadPath = BASEURL.'images/products/'.$uploadName;
+        $dbPath = '/site/images/products/'.$uploadName;
+        if($mimeType!='image'){
+            $errors[]='The file must be an image.';
+        }
+        if(!in_array($fileExt, $allowed)){
+         $errors[] = 'The file extension must be a png, jpg, jpeg or gif.';   
+        }
+        if($fileSize > 10000000){
+         $errors[] = 'The file size must be under 10mb';
+        }
+        if($fileExt != $mimeExt && ($mimeExt == 'jpeg' && $fileExt != 'jpg') ){
+            $errors[] = 'File extension does not match the file';
+        }
+    }
+    if(!empty($errors)){
+        echo display_errors($errors);
+     }else{
+        //upload file and insert into database
+        move_uploaded_file($tmpLoc, $uploadPath);
+        $insertSQL = "INSERT INTO products (`title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `quantity`)                VALUES ('$title', '$price', '$list_price', '$brand', '$categories', '$dbPath', '$description', '$quantity')";
+        $db->query($insertSQL);
+        header('Location: products.php');
+    }
+   }
     ?>
     <h2 class="text-center">Add a new product</h2><hr>
     <form action="products.php?add=1" method="POST" enctype="multipart/form-data">
@@ -43,7 +98,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
         
         </div>
         <div class="form group col-md-3">
-            <label for="price">List Price*:</label>
+            <label for="price">List Price:</label>
             <input type="text" id="list_price" name="list_price" class="form-control" value=""<?=((isset($_POST['list_price']))?sanitize($_POST['list_price']):''); ?>></input>
         </div>
         <div class = "form-group col-md-3">
@@ -52,7 +107,7 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
         </div>
         <div class="form-group col-md-3">
             <label for="quantity">Quantity Preview</label>
-            <input class="form-control" type="text" name="qty_prev" id="qty_prev" value="" readonly>
+            <input class="form-control" type="text" name="quantity" id="qty_prev" value="" readonly>
         </div>
         <div class="form-group col-md-6">
             <label for="photo">Product Photo:</label>
