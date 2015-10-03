@@ -56,7 +56,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
      }else{
         //upload file and insert into database
         move_uploaded_file($tmpLoc, $uploadPath);
-        $insertSQL = "INSERT INTO products (`title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `quantity`)                VALUES ('$title', '$price', '$list_price', '$brand', '$categories', '$dbPath', '$description', '$quantity')";
+        $insertSQL = "INSERT INTO products (`title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `quantity`) 
+        VALUES ('$title', '$price', '$list_price', '$brand', '$categories', '$dbPath', '$description', '$quantity')";
         $db->query($insertSQL);
         header('Location: products.php');
     }
