@@ -2,79 +2,94 @@
 require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
     include 'includes/head.php';
     include 'includes/navigation.php';
-    if(isset($_GET['add'])) {
-    $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
-    $parentQuery = $db->query("SELECT * FROM categories WHERE parent = 0 ORDER BY category");
-   if($_POST){
-      $title = sanitize($_POST['title']);
-      $brand = sanitize($_POST['brand']);
-      $price = sanitize($_POST['price']);
-      $list_price = sanitize($_POST['list_price']);
-      $categories = sanitize($_POST['child']);
-      $quantity = sanitize($_POST['quantity']);
-      $description = sanitize($_POST['description']);
-      $dbPath = '';
-      $errors = array();
-      $required = array('title', 'brand', 'parent', 'child', 'quantity');
-      foreach($required as $field){
-          if($_POST[$field]==''){
-           $errors[] = "All fields with an asterisk are required.";
-           break;
+    if(isset($_GET['add']) || isset($_GET['edit'])) {
+        $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
+        $parentQuery = $db->query("SELECT * FROM categories WHERE parent = 0 ORDER BY category");
+        $title = ((isset($_POST['title']) && $_POST['title']!='')?sanitize($_POST['title']):'');
+        $brand = ((isset($_POST['brand']) && !empty($_POST['brand']))?sanitize($_POST['brand']):'');
+        $parent = ((isset($_POST['parent']) && !empty($_POST['parent']))?sanitize($_POST['parent']):'');
+        $category = ((isset($_POST['child']) && !empty($_POST['child']))?sanitize($_POST['child']):'');
+        
+        if(isset($_GET['edit'])){
+            $edit_id = (int)$_GET['edit'];
+            $productResults = $db->query("SELECT * FROM PRODUCTS WHERE id = '$edit_id'");
+            $product = mysqli_fetch_assoc($productResults);
+            $category = ((isset($_POST['child']) && !empty($_POST['child']))?sanitize($_POST['child']):$product['categories']);
+            $title = ((isset($_POST['title']) && !empty($_POST['title']))?sanitize($_POST['title']):$product['title']);
+            $brand = ((isset($_POST['brand']) && $_POST['brand']!='')?sanitize($_POST['brand']):$product['brand']);
+            $parentQ = $db->query("SELECT * FROM categories WHERE id='$category'");
+            $parentResult = mysqli_fetch_assoc($parentQ);
+            $parent = ((isset($_POST['parent']) && !empty($_POST['parent']))?sanitize($_POST['parent']):$parentResult['parent']);
+            
+        }
+       if($_POST){
+          $price = sanitize($_POST['price']);
+          $list_price = sanitize($_POST['list_price']);
+          $categories = sanitize($_POST['child']);
+          $quantity = sanitize($_POST['quantity']);
+          $description = sanitize($_POST['description']);
+          $dbPath = '';
+          $errors = array();
+          $required = array('title', 'brand', 'parent', 'child', 'quantity');
+          foreach($required as $field){
+              if($_POST[$field]==''){
+               $errors[] = "All fields with an asterisk are required.";
+               break;
+              }
           }
-      }
-    if(!empty($_FILES)){
-        var_dump($_FILES);
-        $photo = $_FILES['photo'];
-        $name = $photo['name'];
-        $nameArray = explode('.',$name);
-        $fileName = $nameArray[0];
-        $fileExt = $nameArray[1];
-        $mime = explode('/',$photo['type']);
-        $mimeType = $mime[0];
-        $mimeExt =  $mime[1];
-        $tmpLoc = $photo['tmp_name'];
-        $fileSize = $photo['size'];
-        $allowed = array('png','jpg','jpeg','gif');        
-        $uploadName = md5(microtime()).'.'.$fileExt;
-        $uploadPath = BASEURL.'images/products/'.$uploadName;
-        $dbPath = '/site/images/products/'.$uploadName;
-        if($mimeType!='image'){
-            $errors[]='The file must be an image.';
+        if(!empty($_FILES)){
+            var_dump($_FILES);
+            $photo = $_FILES['photo'];
+            $name = $photo['name'];
+            $nameArray = explode('.',$name);
+            $fileName = $nameArray[0];
+            $fileExt = $nameArray[1];
+            $mime = explode('/',$photo['type']);
+            $mimeType = $mime[0];
+            $mimeExt =  $mime[1];
+            $tmpLoc = $photo['tmp_name'];
+            $fileSize = $photo['size'];
+            $allowed = array('png','jpg','jpeg','gif');        
+            $uploadName = md5(microtime()).'.'.$fileExt;
+            $uploadPath = BASEURL.'images/products/'.$uploadName;
+            $dbPath = '/site/images/products/'.$uploadName;
+            if($mimeType!='image'){
+                $errors[]='The file must be an image.';
+            }
+            if(!in_array($fileExt, $allowed)){
+             $errors[] = 'The file extension must be a png, jpg, jpeg or gif.';   
+            }
+            if($fileSize > 10000000){
+             $errors[] = 'The file size must be under 10mb';
+            }
+            if($fileExt != $mimeExt && ($mimeExt == 'jpeg' && $fileExt != 'jpg') ){
+                $errors[] = 'File extension does not match the file';
+            }
         }
-        if(!in_array($fileExt, $allowed)){
-         $errors[] = 'The file extension must be a png, jpg, jpeg or gif.';   
+        if(!empty($errors)){
+            echo display_errors($errors);
+         }else{
+            //upload file and insert into database
+            move_uploaded_file($tmpLoc, $uploadPath);
+            $insertSQL = "INSERT INTO products (`title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `quantity`) 
+            VALUES ('$title', '$price', '$list_price', '$brand', '$categories', '$dbPath', '$description', '$quantity')";
+            $db->query($insertSQL);
+            header('Location: products.php');
         }
-        if($fileSize > 10000000){
-         $errors[] = 'The file size must be under 10mb';
-        }
-        if($fileExt != $mimeExt && ($mimeExt == 'jpeg' && $fileExt != 'jpg') ){
-            $errors[] = 'File extension does not match the file';
-        }
-    }
-    if(!empty($errors)){
-        echo display_errors($errors);
-     }else{
-        //upload file and insert into database
-        move_uploaded_file($tmpLoc, $uploadPath);
-        $insertSQL = "INSERT INTO products (`title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `quantity`) 
-        VALUES ('$title', '$price', '$list_price', '$brand', '$categories', '$dbPath', '$description', '$quantity')";
-        $db->query($insertSQL);
-        header('Location: products.php');
-    }
-   }
-    ?>
-    <h2 class="text-center">Add a new product</h2><hr>
-    <form action="products.php?add=1" method="POST" enctype="multipart/form-data">
+       }
+        ?>
+    <h2 class="text-center"><?=((isset($_GET['edit']))?'Edit ':'Add a new '); ?>product</h2><hr>
+    <form action="products.php?<?=((isset($_GET['edit']))?'edit='.$edit_id:'add=1'); ?>" method="POST" enctype="multipart/form-data">
         <div class="form-group col-md-3">
             <label for="title">Title*: </label>
-            <input type="text" name="title" class="form-control" id="title" value="<?=((isset($_POST['title']))?sanitize($_POST['title']):''); ?>">
+            <input type="text" name="title" class="form-control" id="title" value="<?=$title; ?>">
         </div>
         <div class="form-group col-md-3">
             <label for="brand">Brand*:</label>
             <select class="form-control" id="brand" name="brand">
-                <option value=""<?=((isset($_POST['brand']) && $_POST['brand'] == '')?' selected':''); ?>></option>
-                <?php while($brand = mysqli_fetch_assoc($brandQuery)): ?>
-                    <option value="<?=$brand['id'];?>"<?=((isset($_POST['brand']) && $_POST['brand']==$brand['id'])?' selected':'');?>><?= $brand['brand']; ?></option>
+                <option value=""<?=(($brand == '')?' selected':''); ?>></option>
+                <?php while($b = mysqli_fetch_assoc($brandQuery)): ?>
+                    <option value="<?=$b['id'];?>"<?=(($brand==$b['id'])?' selected':'');?>><?= $b['brand']; ?></option>
                 
                 <?php endwhile; ?>
             </select>
@@ -82,9 +97,9 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
         <div class="form-group col-md-3">
             <label for="parent">Parent Category*:</label>
             <select class="form-control" id="parent" name="parent">
-                <option value=""<?=((isset($_POST['parent']) && $_POST['parent']=='')?' selected':'');  ?>></option>
-                <?php while($parent = mysqli_fetch_assoc($parentQuery)): ?>
-                    <option value="<?= $parent['id'];?>"<?= ((isset($_POST['parent']) && $_POST['parent'] == $parent['id'])?' select': ''); ?>><?= $parent['category']; ?></option>
+                <option value=""<?=(($parent=='')?' selected':'');  ?>></option>
+                <?php while($p = mysqli_fetch_assoc($parentQuery)): ?>
+                    <option value="<?= $p['id'];?>"<?= (($parent == $p['id'])?' selected': ''); ?>><?= $p['category']; ?></option>
                 <?php endwhile; ?>
             </select>
         </div>
@@ -119,7 +134,8 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
             <textarea id="description" name="description" class="form-control" rows="6"><?= ((isset($_POST['description']))?sanitize($POST['description']):'');?></textarea>
         </div>
         <div class="form-group pull-right">
-            <input type="submit" value="Add product" class="form-control btn btn-success">
+            <a href="products.php" class="btn btn-default">Cancel</a>
+            <input type="submit" value="<?=((isset($_GET['edit']))?'Edit ':'Add a new '); ?>product" class="btn btn-success">
         </div><div class="clearfix"></div>    
     </form>
         <!-- Modal -->
