@@ -2,6 +2,13 @@
 require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
     include 'includes/head.php';
     include 'includes/navigation.php';
+
+    //delete product
+    if(isset($_GET['delete'])){
+        $id = sanitize($_GET['delete']);
+        $db->query("UPDATE products SET deleted = 1 WHERE id='$id'");
+        header('Location: products.php');
+    }
     $dbPath = '';
     if(isset($_GET['add']) || isset($_GET['edit'])) {
         $brandQuery = $db->query("SELECT * FROM brand ORDER BY brand");
@@ -55,7 +62,6 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/core/init.php';
               }
           }
         if(!empty($_FILES)){
-            var_dump($_FILES);
             $photo = $_FILES['photo'];
             $name = $photo['name'];
             $nameArray = explode('.',$name);
