@@ -54,7 +54,9 @@ $errors = array();
             if(!empty($errors)){
              echo display_errors($errors);   
             }else{
-             //log user   
+             //log user 
+            $user_id = $user['id']; 
+            login($user_id);
             }
         }
     
