@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2015 at 08:25 PM
+-- Generation Time: Nov 07, 2015 at 06:45 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -128,14 +128,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_login` datetime NOT NULL,
   `permissions` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `join_date`, `last_login`, `permissions`) VALUES
-(1, 'Alex Bratu', 'alexbratuu@gmail.com', '$2y$10$tytUlkRvKsmsjOOgZV8JGO6IfK0vEC7EvGFvrjm6U12oTYHxttV8W', '2015-11-02 20:36:10', '2015-11-02 00:00:00', 'admin,editor');
+(3, 'Test Testo', 'test@test.com', '$2y$10$C01Q.7sNGzRsKFcM4MTyceMtcqrfnlS91vMaCk83WRCwmvItp70fK', '2015-11-07 18:03:42', '2015-11-07 17:12:57', 'editor,admin'),
+(4, 'Alex Bratu', 'alexbratuu@gmail.com', '$2y$10$cuXedOfNkRc2LPX4Q0jFgOWe7TPqKyKj6B3lMOs8r.nePx64/VwA6', '2015-11-07 18:13:38', '2015-11-07 17:14:19', 'admin,editor');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
