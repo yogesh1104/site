@@ -74,7 +74,7 @@ img.details{
 }
 .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a:hover,
 .navbar-inverse .navbar-nav > li > .dropdown-menu > li > a:focus {
-  color: #d9d9d9;
+  color: white;
   background-color: #000000;
 }
 

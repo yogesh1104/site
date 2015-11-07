@@ -50,3 +50,7 @@ function has_permission($permission = 'admin'){
     }
     return false;
 }
+
+function format_date($date){
+    return date("M d, Y h:i A", strtotime($date));
+}
