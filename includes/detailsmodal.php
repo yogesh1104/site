@@ -40,7 +40,7 @@ $brand = mysqli_fetch_assoc($brand_query);
                                 <div class="form-group">
                                     <div class="col-xs-3">
                                         <label for="quantity">Quantity:</label>
-                                        <input type="text" class="form-control" id="quantity" name="quantity">
+                                        <input type="number" class="form-control" id="quantity" name="quantity" min="1">
                                     </div>
                                 </div>
                             </form>

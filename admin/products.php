@@ -55,7 +55,7 @@
           $categories = sanitize($_POST['child']);
           $quantity = sanitize($_POST['quantity']);
           $description = sanitize($_POST['description']);
-          $dbPath = '';
+          
           $errors = array();
           $required = array('title', 'brand', 'parent', 'child', 'quantity');
           foreach($required as $field){
@@ -96,7 +96,9 @@
             echo display_errors($errors);
          }else{
             //upload file and insert into database
-            move_uploaded_file($tmpLoc, $uploadPath);
+            if(!empty($_FILES)){
+                move_uploaded_file($tmpLoc, $uploadPath);
+            }
             $insertSQL = "INSERT INTO products (`title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `quantity`) 
             VALUES ('$title', '$price', '$list_price', '$brand', '$category', '$dbPath', '$description', '$quantity')";
             if(isset($_GET['edit'])){
