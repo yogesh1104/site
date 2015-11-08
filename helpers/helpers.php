@@ -17,7 +17,7 @@ function money($number){
 }
 
 function login($user_id){
-    $_SESSION['SBUser'] = $user_id;
+    $_SESSION['MGUser'] = $user_id;
     global $db;
     $date = date("Y-m-d H:i:s");
     $db->query("UPDATE users SET last_login = '$date' WHERE id='$user_id'");
@@ -26,7 +26,7 @@ function login($user_id){
 }
 
 function is_logged_in(){
-    if(isset($_SESSION['SBUser']) && $_SESSION['SBUser']>0){
+    if(isset($_SESSION['MGUser']) && $_SESSION['MGUser']>0){
         return true;
     }
     return false;

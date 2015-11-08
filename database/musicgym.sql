@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2015 at 06:45 PM
+-- Generation Time: Nov 08, 2015 at 06:57 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -41,6 +41,27 @@ INSERT INTO `brand` (`id`, `brand`) VALUES
 (2, 'Epiphone'),
 (4, 'Fender'),
 (7, 'Korg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cart`
+--
+
+CREATE TABLE IF NOT EXISTS `cart` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `items` text COLLATE utf8_unicode_ci NOT NULL,
+  `expire_date` datetime NOT NULL,
+  `paid` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`id`, `items`, `expire_date`, `paid`) VALUES
+(9, '[{"id":"2","quantity":3},{"id":"1","quantity":"1"}]', '2015-12-08 18:52:13', 0);
 
 -- --------------------------------------------------------
 
@@ -110,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 INSERT INTO `products` (`id`, `title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `featured`, `deleted`, `quantity`) VALUES
 (1, 'Gibson LP Less', '1390', '1500', 1, '31', '/site/images/products/Electric Guitar Gibson LP Less.jpg', 'Gibson Les Paul Less+ HCS 2015, electric guitar, G-Force tuning system, mahogany body, maple top, mahogany neck, rounded thomann C neck profile, rosewood fretboard, trapez inlays, 22 frets, 628mm scale, 46mm nut width, 1x 57 Classic and 57 Plus humbuckers, toggle switch, 2x volume and 1x tone controls, mini toggle coil split, nickel Tune-o-Matic bridge, finish: heritage cherry sunburst, incl. case, incl. thomann G-Force charger', 1, 0, 2),
-(2, 'Epiphone Les Paul', '318', '400', 2, '31', '/site/images/products/Electric Guitar Epiphone Les Paul Standard.jpg', 'Epiphone Les Paul Standard Ebony , electric guitar, mahognay body, mahogany neck, rosewood fretboard, 42,67 mm saddle width, thomann 628 mm scale lenght, 2x alnico classic humbucking pick-ups, Grover tuners, chrome hardware, trapez inlays, colour: ebony', 1, 0, 3),
+(2, 'Epiphone Les Paul', '319', '400', 2, '31', '/site/images/products/Electric Guitar Epiphone Les Paul Standard.jpg', 'Epiphone Les Paul Standard Ebony , electric guitar, mahognay body, mahogany neck, rosewood fretboard, 42,67 mm saddle width, thomann 628 mm scale lenght, 2x alnico classic humbucking pick-ups, Grover tuners, chrome hardware, trapez inlays, colour: ebony', 1, 0, 3),
 (6, 'test', '466', '677', 2, '33', '/site/images/products/755ffad90b2d702a54890aaa4102b470.jpg', 'ergerhreh', 0, 1, 2);
 
 -- --------------------------------------------------------
@@ -136,7 +157,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `join_date`, `last_login`, `permissions`) VALUES
 (3, 'Test Testo', 'test@test.com', '$2y$10$C01Q.7sNGzRsKFcM4MTyceMtcqrfnlS91vMaCk83WRCwmvItp70fK', '2015-11-07 18:03:42', '2015-11-07 17:12:57', 'editor,admin'),
-(4, 'Alex Bratu', 'alexbratuu@gmail.com', '$2y$10$cuXedOfNkRc2LPX4Q0jFgOWe7TPqKyKj6B3lMOs8r.nePx64/VwA6', '2015-11-07 18:13:38', '2015-11-07 17:14:19', 'admin,editor');
+(4, 'Alex Bratu', 'alexbratuu@gmail.com', '$2y$10$0QoGdYw1PXDJkHdCF7aaS.OaUcOTVnP3RU/7hfSGSzGxyGHF.dbMe', '2015-11-07 18:13:38', '2015-11-08 15:28:25', 'admin,editor');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

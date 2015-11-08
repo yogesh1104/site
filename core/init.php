@@ -9,8 +9,13 @@ require_once $_SERVER['DOCUMENT_ROOT'].'/site/config.php';
 require_once BASEURL.'helpers/helpers.php';
 
 
-if(isset($_SESSION['SBUser'])){
-    $user_id = $_SESSION['SBUser'];
+$cart_id = '';
+if(isset($_COOKIE[CART_COOKIE])){
+ $cart_id = sanitize($_COOKIE[CART_COOKIE]);   
+}
+
+if(isset($_SESSION['MGUser'])){
+    $user_id = $_SESSION['MGUser'];
     $query = $db->query("SELECT * FROM users WHERE id='$user_id'");
     $user_data = mysqli_fetch_assoc($query);
     $fn = explode(' ', $user_data['full_name']);

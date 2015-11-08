@@ -25,6 +25,7 @@ $brand = mysqli_fetch_assoc($brand_query);
             <div class="modal-body">
                 <div class="container-fluid">
                     <div class="row">
+                       <span id="modal_errors" class="bg-danger"></span> 
                         <div class="col-sm-6">
                             <div class="center-block">
                                 <img src="<?= $product['image']; ?>" alt="<?= $product['title']; ?>" class="details img-responsive">
@@ -36,11 +37,15 @@ $brand = mysqli_fetch_assoc($brand_query);
                             <hr>
                             <p>Price: <?= $product['price']; ?> &euro; </p>
                             <p>Brand: <?= $brand['brand']; ?></p>
-                            <form action="add_cart.php" method="post">
+                            <p>Available: <?=$product['quantity'];?></p>
+                            <form action="add_cart.php" method="post" id="add_product_form">
+                                <input type="hidden" name="product_id" value="<?=$id; ?>">
+                                <input type="hidden" name="available" id="available" value="<?=$product['quantity'];?>">
                                 <div class="form-group">
-                                    <div class="col-xs-3">
+                                    <div class="col-xs-4">
+                                        <br><br>
                                         <label for="quantity">Quantity:</label>
-                                        <input type="number" class="form-control" id="quantity" name="quantity" min="1">
+                                        <input type="number" class="form-control" id="quantity" name="quantity" min="0">
                                     </div>
                                 </div>
                             </form>
@@ -51,13 +56,13 @@ $brand = mysqli_fetch_assoc($brand_query);
             
             <div class="modal-footer">
                 <button class="btn btn-default" onclick="closeModal()">Close</button>
-                <button class="btn btn-warning" type="submit"><span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button>
+                <button class="btn btn-warning" onclick="addToCart(); return false;"><span class="glyphicon glyphicon-shopping-cart"></span>Add To Cart</button>
             </div>
         
         </div>
    </div>
 </div>
-<script>
+<script> 
     function closeModal(){
        $('#details-modal').modal('hide');
         setTimeout(function(){
