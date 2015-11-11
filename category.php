@@ -35,7 +35,6 @@ $category = get_category($cat_id);
             </div>
 
 <?php
-//include 'includes/detailsmodal.php';
 include 'includes/rightbar.php';
 include 'includes/footer.php';
 ?>       

@@ -149,3 +149,7 @@ img.details{
     left: -25p;
     
 }
+
+.totals-table-header th {
+    text-align: center;
+}
