@@ -46,8 +46,7 @@ if($cart_id != ''){
                             <?=@$item['quantity']; ?>
                             <?php if(@$item['quantity']<$available): ?>
                                 <button class="btn btn-xs btn-default" onclick="updateCart('addone','<?=$product['id']; ?>');">+</button>
-                            <?php else: ?>
-                                <span class="text-danger">Max Quantity Reached</span>
+                            
                             <?php endif; ?>
                         </td>
                         <td><?=money(@$item['quantity']*$product['price']); ?></td>
@@ -177,7 +176,7 @@ if($cart_id != ''){
                             <button type="submit" class="btn btn-primary" id="checkout_btn" style="display: none;">Checkout</button>
                     </form>
                  </div>
-             </div>
+             </div> 
          </div>
     </div>
         <?php endif; ?>

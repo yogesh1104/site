@@ -43,8 +43,8 @@
             $parentResult = mysqli_fetch_assoc($parentQ);
             $parent = ((isset($_POST['parent']) && !empty($_POST['parent']))?sanitize($_POST['parent']):$parentResult['parent']);
             $price = ((isset($_POST['price']) && !empty($_POST['price']))?sanitize($_POST['price']):$product['price']);
-            $list_price = ((isset($_POST['list_price']) && !empty($_POST['list_price']))?sanitize($_POST['list_price']):$product['list_price']);
-            $description = ((isset($_POST['description']) && !empty($_POST['description']))?sanitize($_POST['description']):$product['description']);
+            $list_price = ((isset($_POST['list_price']))?sanitize($_POST['list_price']):$product['list_price']);
+            $description = ((isset($_POST['description']))?sanitize($_POST['description']):$product['description']);
             $quantity = ((isset($_POST['quantity']) && !empty($_POST['quantity']))?sanitize($_POST['quantity']):$product['quantity']);
             $saved_image = (($product['image'] != '')?$product['image']:'');
             $dbPath = $saved_image;
@@ -64,7 +64,7 @@
                break;
               }
           }
-        if(!empty($_FILES)){
+        if($_FILES['photo']['name']!=''){
             $photo = $_FILES['photo'];
             $name = $photo['name'];
             $nameArray = explode('.',$name);
