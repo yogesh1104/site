@@ -6,12 +6,11 @@
                     <li><a href="brands.php">Brands</a></li>
                     <li><a href="categories.php">Categories</a></li>
                     <li><a href="products.php">Products</a></li>
-                    <li><a href="archived.php">Archived</a></li>
                     <?php if(has_permission('admin')): ?>
                     <li><a href="users.php">Users</a></li>
                     <?php endif; ?>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Settings
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Account Settings
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">

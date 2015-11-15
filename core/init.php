@@ -7,6 +7,7 @@ if(mysqli_connect_errno()){
 session_start();
 require_once $_SERVER['DOCUMENT_ROOT'].'/site/config.php';
 require_once BASEURL.'helpers/helpers.php';
+require BASEURL.'vendor/autoload.php';
 
 
 $cart_id = '';
