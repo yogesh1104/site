@@ -20,6 +20,19 @@
             });
         });
         
+        function updateCart(mode,edit_id){
+            var data = {"mode": mode, "edit_id": edit_id};
+            $.ajax({
+                url: '/site/admin/parsers/update_cart.php',
+                method: "post",
+                data: data,
+                success: function(){location.reload()},
+                error: function(){alert("Something went wrong with updating the cart");
+            },
+            
+            });
+        }
+        
         function detailsmodal(id){
            var data = {"id" : id};
            $.ajax({
