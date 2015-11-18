@@ -95,6 +95,13 @@ if($cart_id != ''){
                           <div class="row">
                             <form action="checkout_success.php" method="post" id="payment-form">
                                 <span class="bg-danger" id="payment-errors"></span>
+                                <input type="hidden" name="tax" value="<?=$tax ?>">
+                                <input type="hidden" name="sub_total" value="<?=$sub_total; ?>">
+                                <input type="hidden" name="grand_total" value="<?=$grand_total; ?>">
+                                <input type="hidden" name="cart_id" value="<?=$cart_id; ?>">
+                                <input type="hidden" name="description" value="<?=$item_count.' item'.(($item_count>1)?'s':'').' from Music Gym.'; ?>">
+                                
+                                
                                 <div id="step1" style="display: block;">
                                     <div class="form group col-md-6">
                                         <label for="full_name">Full Name:</label>
@@ -106,46 +113,46 @@ if($cart_id != ''){
                                     </div>
                                     <div class="form group col-md-6">
                                         <label for="street">Street Address:</label>
-                                        <input type="text" class="form-control" id="street" name="street">
+                                        <input type="text" class="form-control" id="street" name="street" data-stripe="address_line1">
                                     </div>
                                     <div class="form group col-md-6">
                                         <label for="street2">Street Address 2:</label>
-                                        <input type="text" class="form-control" id="street2" name="street2">
+                                        <input type="text" class="form-control" id="street2" name="street2" data-stripe="address_line2">
                                     </div>
                                     <div class="form group col-md-6">
                                         <label for="city">City:</label>
-                                        <input type="text" class="form-control" id="city" name="city">
+                                        <input type="text" class="form-control" id="city" name="city" data-stripe="address_city">
                                     </div>
                                     <div class="form group col-md-6">
                                         <label for="state">State:</label>
-                                        <input type="text" class="form-control" id="state" name="state">
+                                        <input type="text" class="form-control" id="state" name="state" data-stripe="address_state">
                                     </div>
                                     <div class="form group col-md-6">
                                         <label for="zip_code">Zip Code:</label>
-                                        <input type="text" class="form-control" id="zip_code" name="zip_code">
+                                        <input type="text" class="form-control" id="zip_code" name="zip_code" data-stripe="zip">
                                     </div>
                                     <div class="form group col-md-6">
                                         <label for="country">Country:</label>
-                                        <input type="text" class="form-control" id="country" name="country">
+                                        <input type="text" class="form-control" id="country" name="country" data-stripe="address_country">
                                     </div>
                                     
                                 </div>
                                 <div id="step2" style="display: none;">
                                     <div class="form-group col-md-3">
                                         <label for="name">Name on Card:</label>
-                                        <input type="text" id="name" name="name" class="form-control">
+                                        <input type="text" id="name" name="name" class="form-control" data-stripe="name">
                                     </div>
                                     <div class="form-group col-md-3">
                                         <label for="number">Card Number:</label>
-                                        <input type="text" id="number" name="number" class="form-control">
+                                        <input type="text" id="number" name="number" class="form-control" data-stripe="number">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="cvc">CVC:</label>
-                                        <input type="text" id="cvc" name="cvc" class="form-control">
+                                        <input type="text" id="cvc" name="cvc" class="form-control" data-stripe="cvc">
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="exp-month">Expire Month:</label>
-                                        <select id="exp-month" name="exp-month" class="form-control">
+                                        <select id="exp-month" name="exp-month" class="form-control" data-stripe="exp_month">
                                             <option value=""></option>
                                             <?php for($i=1; $i<13; $i++): ?>
                                                 <option value="<?=$i; ?>"><?=$i; ?></option>
@@ -154,7 +161,7 @@ if($cart_id != ''){
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="exp-year">Expire Year::</label>
-                                        <select id="exp-year" name="exp-year" class="form-control">
+                                        <select id="exp-year" name="exp-year" class="form-control" data-stripe="exp_year">
                                             <option value=""></option>
                                             <?php $year = date("Y"); ?>
                                             <?php for($i=0; $i<11; $i++): ?>
@@ -229,6 +236,39 @@ if($cart_id != ''){
         error: function(){alert("Something went wrong during address check");}
     });    
 }
+    
+     Stripe.setPublishableKey('<?=STRIPE_PUBLIC; ?>');
+    
+    function stripeResponseHandler(status, response) {
+          var $form = $('#payment-form');
+
+          if (response.error) {
+            // Show the errors on the form
+            $form.find('#payment-errors').text(response.error.message);
+            $form.find('button').prop('disabled', false);
+          } else {
+            // response contains id and card, which contains additional card details
+            var token = response.id;
+            // Insert the token into the form so it gets submitted to the server
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            // and submit
+            $form.get(0).submit();
+          }
+        };
+    
+    jQuery(function($) {
+      $('#payment-form').submit(function(event) {
+        var $form = $(this);
+
+        // Disable the submit button to prevent repeated clicks
+        $form.find('button').prop('disabled', true);
+
+        Stripe.card.createToken($form, stripeResponseHandler);
+
+        // Prevent the form from submitting with the default action
+        return false;
+      });
+    });
 
 </script>
 
