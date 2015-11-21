@@ -18,8 +18,8 @@ $featured = $db->query($sql);
                         <div class="col-md-3">
                             <h4><?= $product['title']; ?></h4>
                             <img src="<?= $product['image'];?>" alt="<?= $product['title']; ?>" class="img-thumb"/>
-                            <p class="list-price text-danger">List Price <s><?= $product['list_price'];?> &euro;</s></p>
-                            <p class="price">Our Price: <?= $product['price'];?> &euro;</p>
+                            <p class="list-price text-danger">List Price <s><?= money($product['list_price']);?></s></p>
+                            <p class="price">Our Price: <?= money($product['price']);?></p>
                             <button type="button" class="btn btn-sm btn-success" onclick="detailsmodal(<?= $product['id']; ?>)" >Details</button>
                         </div>
                     <?php endwhile; ?>

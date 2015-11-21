@@ -35,7 +35,7 @@ $brand = mysqli_fetch_assoc($brand_query);
                             <h4>Details</h4>
                             <p><?= nl2br($product['description']); ?></p>
                             <hr>
-                            <p>Price: <?= $product['price']; ?> &euro; </p>
+                            <p>Price: <?= money($product['price']); ?> </p>
                             <p>Brand: <?= $brand['brand']; ?></p>
                             <p>Available: <?=$product['quantity'];?></p>
                             <form action="add_cart.php" method="post" id="add_product_form">

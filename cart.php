@@ -3,7 +3,7 @@ require_once 'core/init.php';
 include 'includes/head.php'; 
 include 'includes/navigation.php';
 include 'includes/headerpartial.php';
-include 'includes/leftbar.php';
+
 
 
 if($cart_id != ''){
@@ -16,6 +16,9 @@ if($cart_id != ''){
 }
 ?>
 
+<div class="col-md-2">
+
+</div>
 
 <div class="col-md-8">
     <div class="row">
@@ -35,7 +38,6 @@ if($cart_id != ''){
                         $productQ = $db->query("SELECT * FROM products WHERE id = '{$product_id}'");
                         $product = mysqli_fetch_assoc($productQ);
                         $available = $product['quantity'];                       
-                        var_dump($items);
                     ?>
                     <tr>
                         <td><?= $i; ?></td>
@@ -189,6 +191,10 @@ if($cart_id != ''){
         <?php endif; ?>
     </div>
 </div>
+
+<div class="col-md-2">
+
+</div>
 <script>
     
     function backAddress(){
@@ -273,6 +279,5 @@ if($cart_id != ''){
 </script>
 
 <?php
-include 'includes/rightbar.php';
 include 'includes/footer.php';
 ?>    
