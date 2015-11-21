@@ -211,7 +211,7 @@
 
 <hr>
 <table class = "table table-bordered table-condensed table-striped">
-    <thead><th></th><th>Product</th><th>Price</th><th>Categories</th><th>Featured</th><th>Sold</th></thead>
+    <thead><th></th><th>Product</th><th>Price</th><th>Categories</th><th>Featured</th><th>Quantity</th></thead>
     <tbody>
         <?php while($product = mysqli_fetch_assoc($presults)): 
             $childID = $product['categories'];
@@ -225,7 +225,7 @@
             $category = $parent['category'].'~'.$child['category'];
         
         ?>
-            <tr>
+            <tr<?=($product['quantity']==0)?' class="danger"':''; ?>>
                 <td>
                     <a href="products.php?edit=<?=$product['id']; ?>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-pencil"></span></a>
                     <a href="products.php?delete=<?=$product['id']; ?>" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-remove"></span></a>
@@ -236,7 +236,7 @@
                 <td><a href="products.php?featured=<?=(($product['featured'] == 0)?'1':'0'); ?>&id=<?=$product['id']; ?>" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-<?=(($product['featured']==1)?'minus':'plus'); ?>"></span></a>
                     &nbsp <?=(($product['featured']==1)?'Featured product' : ''); ?></td>
-                <td>0</td>
+                <td><?=$product['quantity'] ?></td>
             </tr>
         
         <?php endwhile; ?>
