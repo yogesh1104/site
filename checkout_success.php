@@ -39,11 +39,26 @@ try {
     "metadata" => $metadata        
     ));
     
+//update inventory
+$itemQ = $db->query("SELECT * FROM cart WHERE id = '{$cart_id}'");
+$iresults = mysqli_fetch_assoc($itemQ);
+$items = json_decode($iresults['items'], true);
+foreach($items as $item){
+    $item_id = $item['id'];
+    $productQ = $db->query("SELECT quantity FROM products WHERE id = '{$item_id}'");
+    $product = mysqli_fetch_assoc($productQ);
+    $newQuantity = $product['quantity'] - $item['quantity'];
+    $db->query("UPDATE products SET quantity = '$newQuantity' WHERE id = '{$item_id}'");
+    
+}
+    
+    
+    
+//update cart
 $db->query("UPDATE cart SET paid = 1 WHERE id='{$cart_id}'");
-$db->query("INSERT INTO transactions
-(`charge_id`, `cart_id`, `full_name`, `email`, `street`, `street2`, `city`, `state`, `zip_code`, `country`, `sub_total`, `tax`, `grand_total`, `description`, `txn_type`) VALUES ('$charge->id', '$cart_id', '$full_name', '$email', '$street', '$street2', '$city', '$state', '$zip_code', '$country', '$sub_total', '$grand_total', '$description', '$charge->object') ");
+$db->query("INSERT INTO transactions (`charge_id`, `cart_id`, `full_name`, `email`, `street`, `street2`, `city`, `state`, `zip_code`, `country`, `sub_total`, `tax`, `grand_total`, `description`, `txn_type`) VALUES ('$charge->id', '$cart_id', '$full_name', '$email', '$street', '$street2', '$city', '$state', '$zip_code', '$country', '$sub_total', '$grand_total', '$description', '$charge->object') ");
 
-//$domain = ($_SERVER['HTTP_HOST']!='localhost')?'.'.$_SERVER['HTTP_HOST']:false;
+//$domain = '.'.$_SERVER['HTTP_HOST'];
 setcookie(CART_COOKIE, '',1,"/",false,false); //when deployed instead of first false is $_SERVER['HTTP_POST']
 include 'includes/head.php'; 
 include 'includes/navigation.php';
@@ -52,7 +67,7 @@ include 'includes/leftbar.php';
 ?>
 <div class="container-fluid col-md-8">
     <h1 class="text-center text-success">Checkout success!</h1><br>
-    <p> Your card has been successfully charged <?=money($grand_total); ?>. The receipt has been mailed to you. Please check your spam folder if it is not in your inbox. Additionally you can print this page as a receipt.</p>
+    <p> Your card has been successfully charged <?=money($grand_total); ?>. Please check your email with the confirmation and keep your phone close because one of our operators will call you as soon as possible. Thank you!</p>
     <p>Your receipt number is: <strong><?=$cart_id; ?></strong></p>
     <p>Your order will be shipped to the address below</p>
     <address>
