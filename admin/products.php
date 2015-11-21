@@ -159,7 +159,7 @@
         </div>
         <div class="form-group col-md-6">
             <?php if($saved_image != ''): ?> 
-                <div><img class="img-responsive" src="<?= $saved_image; ?>" alt="saved image">
+                <div><img class="img-responsive" src="<?= $saved_image; ?>" alt="saved image" style="max-width: 30%;">
                 <a href="products.php?delete_image=1&edit=<?=$edit_id;?>" class="btn btn-danger">Delete image</a>
                 </div>
             <?php else: ?>
@@ -236,7 +236,7 @@
                 <td><a href="products.php?featured=<?=(($product['featured'] == 0)?'1':'0'); ?>&id=<?=$product['id']; ?>" class="btn btn-xs btn-default">
                     <span class="glyphicon glyphicon-<?=(($product['featured']==1)?'minus':'plus'); ?>"></span></a>
                     &nbsp <?=(($product['featured']==1)?'Featured product' : ''); ?></td>
-                <td><?=$product['quantity'] ?></td>
+                <td><?=$product['quantity']; ?></td>
             </tr>
         
         <?php endwhile; ?>

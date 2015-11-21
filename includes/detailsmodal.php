@@ -28,7 +28,7 @@ $brand = mysqli_fetch_assoc($brand_query);
                        <span id="modal_errors" class="bg-danger"></span> 
                         <div class="col-sm-6">
                             <div class="center-block">
-                                <img src="<?= $product['image']; ?>" alt="<?= $product['title']; ?>" class="details img-responsive">
+                                <img src="<?= $product['image']; ?>" alt="<?= $product['title']; ?>" class="details img-responsive"> 
                             </div>
                         </div>
                         <div class="col-sm-6"> 
