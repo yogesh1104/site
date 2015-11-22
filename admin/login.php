@@ -79,6 +79,3 @@ $errors = array();
     </form>
     <p class="text-right"><a href="/site/index.php" alt="home">Visit site</a></p>
 </div>
-
-
-<?php include 'includes/footer.php'; ?>

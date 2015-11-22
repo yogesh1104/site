@@ -1,5 +1,11 @@
+html{
+ position: relative;
+ min-height: 100%;
+}
 body {
-    padding-top: 50px;   
+    padding-top: 50px;
+    height: 100%;
+    margin-bottom: 20px;
 }
 
 #headerWrapper{
@@ -58,7 +64,11 @@ body {
 }
 
 #footer{
-    margin-top: 50px;
+    position: absolute;
+    bottom: 0;
+    color: white;
+    height: 20px;
+    width: 100%;
 }
 
 img.details{

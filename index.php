@@ -4,12 +4,11 @@ include 'includes/head.php';
 include 'includes/navigation.php';
 include 'includes/headerpartial.php';
 include 'includes/leftbar.php';
-
 $sql = "SELECT * FROM  products WHERE featured = 1";
 $featured = $db->query($sql);
-
 ?>
-                        
+   
+
             <!-- Main Content -->
             <div class="col-md-8">
                 <div class="row"> 
@@ -28,7 +27,6 @@ $featured = $db->query($sql);
             </div>
 
 <?php
-
 include 'includes/rightbar.php';
 include 'includes/footer.php';
 ?>       

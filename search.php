@@ -64,7 +64,7 @@ $category = get_category($cat_id);
                             <img src="<?= $product['image'];?>" alt="<?= $product['title']; ?>" class="img-thumb"/>
                             <p class="list-price text-danger">List Price <s><?= money($product['list_price']);?></s></p>
                             <p class="price">Our Price: <?= money($product['price']);?></p>
-                            <button type="button" class="btn btn-sm btn-success" onclick="detailsmodal(<?= $product['id']; ?>)" >Details</button>
+                            <button type="button" class="btn btn-sm btn-info" onclick="detailsmodal(<?= $product['id']; ?>)" >Details</button>
                         </div>
                     <?php endwhile; ?>
                    
