@@ -17,7 +17,7 @@
         ?>
         <tr>
             <td><?=$item['quantity']; ?></td>
-            <td><?=substr($product['title'],0,9); ?></td>
+            <td><?=substr($product['title'],0,15); ?></td>
             <td><?=money($item['quantity']*$product['price']);?></td>
         </tr>        
         <?php 

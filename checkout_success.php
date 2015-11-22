@@ -63,8 +63,8 @@ setcookie(CART_COOKIE, '',1,"/",false,false); //when deployed instead of first f
 include 'includes/head.php'; 
 include 'includes/navigation.php';
 include 'includes/headerpartial.php';
-include 'includes/leftbar.php';
 ?>
+<div class="col-md-2"></div>
 <div class="container-fluid col-md-8">
     <h1 class="text-center text-success">Checkout success!</h1><br>
     <p> Your card has been successfully charged <?=money($grand_total); ?>. Please check your email with the confirmation and keep your phone close because one of our operators will call you as soon as possible. Thank you!</p>
@@ -78,8 +78,8 @@ include 'includes/leftbar.php';
         <?=$country;?><br>
     </address>
 </div>
+<div class="col-md-2"></div>
 <?php    
-include 'includes/rightbar.php';
 include 'includes/footer.php';
 
 } catch(\Stripe\Error\Card $e) {

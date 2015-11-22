@@ -204,7 +204,7 @@ if($cart_id != ''){
              $('#next_btn').css("display","inline-block");
              $('#back_btn').css("display","none");
              $('#checkout_btn').css("display","none");
-             $('#checkoutModalLabel').html("Card Details");   
+             $('#checkoutModalLabel').html("Shipping Address");   
     
     }
     
@@ -235,7 +235,7 @@ if($cart_id != ''){
              $('#next_btn').css("display","none");
              $('#back_btn').css("display","inline-block");
              $('#checkout_btn').css("display","inline-block");
-             $('#checkoutModalLabel').html("Shipping Address");
+             $('#checkoutModalLabel').html("Card Details");
             
             }
         },

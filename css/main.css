@@ -167,3 +167,7 @@ img.details{
 input.price-range {
     width: 55px;   
 }
+
+#cart_widget td {
+    font-size: 12px;
+}
