@@ -5,13 +5,44 @@ include 'includes/navigation.php';
 include 'includes/headerpartial.php';
 include 'includes/leftbar.php';
 
-if(isset($_GET['cat'])){
-    $cat_id = sanitize($_GET['cat']);   
+$sql = "SELECT * FROM products";
+$cat_id = (($_POST['cat']!='')?sanitize($_POST['cat']):'');
+if($cat_id == ''){
+  $sql.="  WHERE  deleted = 0";  
 }else{
-    $cat_id='';
+ $sql.=" WHERE categories = '{$cat_id}' AND deleted = 0";   
 }
 
-$sql = "SELECT * FROM  products WHERE categories = '$cat_id' AND deleted = 0";
+$product_name = (($_POST['product_name']!='')?sanitize($_POST['product_name']):'');
+$price_sort = (($_POST['price_sort']!='')?sanitize($_POST['price_sort']):'');
+$min_price = (($_POST['min_price']!='')?sanitize($_POST['min_price']):'');
+$max_price = (($_POST['max_price']!='')?sanitize($_POST['max_price']):'');
+$brand = (($_POST['brand']!='')?sanitize($_POST['brand']):'');
+
+if($product_name!=''){
+ $sql.=" AND title LIKE '%{$product_name}%'";    
+}
+
+if($min_price!=''){
+ $sql.=" AND price >= '{$min_price}'";   
+}
+
+if($max_price!=''){
+ $sql.=" AND price <= '{$max_price}'";   
+}
+
+if($brand!=''){
+ $sql.=" AND brand = '{$brand}'";   
+}
+
+if($price_sort=='low'){
+ $sql.=" ORDER BY price";   
+}
+
+if($price_sort=='high'){
+ $sql.=" ORDER BY price DESC";   
+}
+
 $productQuery = $db->query($sql);
 $category = get_category($cat_id);
 
@@ -19,8 +50,14 @@ $category = get_category($cat_id);
                         
             <!-- Main Content -->
             <div class="col-md-8">
-                <div class="row"> 
+                <div class="row">
+                    <?php if($cat_id!=''): ?>
                     <h2 class="text-center"><?=$category['child']; ?></h2>
+                    
+                    <?php else: ?>
+                    <h2 class="text-center">Results</h2>
+                    
+                    <?php endif; ?>
                     <?php while($product = mysqli_fetch_assoc($productQuery)) : ?>
                         <div class="col-md-3">
                             <h4><?= $product['title']; ?></h4>

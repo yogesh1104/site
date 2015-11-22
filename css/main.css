@@ -153,3 +153,7 @@ img.details{
 .totals-table-header th {
     text-align: center;
 }
+
+input.price-range {
+    width: 55px;   
+}

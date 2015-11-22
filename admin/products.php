@@ -196,7 +196,7 @@
     </div>
     
     <?php }else{
-    $sql = "SELECT * FROM products WHERE deleted = 0";
+    $sql = "SELECT * FROM products WHERE deleted = 0 ORDER BY quantity";
     $presults = $db->query($sql);
     if(isset($_GET['featured'])){
         $id = (int)$_GET['id'];
