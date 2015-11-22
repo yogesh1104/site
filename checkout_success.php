@@ -56,7 +56,7 @@ foreach($items as $item){
     
 //update cart
 $db->query("UPDATE cart SET paid = 1 WHERE id='{$cart_id}'");
-$db->query("INSERT INTO transactions (`charge_id`, `cart_id`, `full_name`, `email`, `street`, `street2`, `city`, `state`, `zip_code`, `country`, `sub_total`, `tax`, `grand_total`, `description`, `txn_type`) VALUES ('$charge->id', '$cart_id', '$full_name', '$email', '$street', '$street2', '$city', '$state', '$zip_code', '$country', '$sub_total', '$grand_total', '$description', '$charge->object') ");
+$db->query("INSERT INTO transactions (`charge_id`, `cart_id`, `full_name`, `email`, `street`, `street2`, `city`, `state`, `zip_code`, `country`, `sub_total`, `tax`, `grand_total`, `description`, `txn_type`) VALUES ('$charge->id', '$cart_id', '$full_name', '$email', '$street', '$street2', '$city', '$state', '$zip_code', '$country', '$sub_total', '$tax', '$grand_total', '$description', '$charge->object') ");
 
 //$domain = '.'.$_SERVER['HTTP_HOST'];
 setcookie(CART_COOKIE, '',1,"/",false,false); //when deployed instead of first false is $_SERVER['HTTP_POST']
