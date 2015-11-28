@@ -165,7 +165,8 @@ img.details{
 }
 
 input.price-range {
-    width: 55px;   
+    width: 65px;
+    display: inline;
 }
 
 #cart_widget td {

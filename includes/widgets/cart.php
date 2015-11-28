@@ -8,7 +8,7 @@
     $items = json_decode($results['items'], true);
     $sub_total = 0;    
 ?>
-<table class="table table-condensed" id="cart_widget">
+<table class="table" id="cart_widget">
     <tbody>
         <?php foreach($items as $item):
             $item_id = $item['id'];
@@ -17,7 +17,7 @@
         ?>
         <tr>
             <td><?=$item['quantity']; ?></td>
-            <td><?=substr($product['title'],0,15); ?></td>
+            <td><?=substr($product['title'],strpos($product['title'], ' '),13); ?></td>
             <td><?=money($item['quantity']*$product['price']);?></td>
         </tr>        
         <?php 

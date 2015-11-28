@@ -13,13 +13,15 @@
     <input type="hidden" name="cat" value="<?=$cat_id;?>">
     <input type="hidden" name="price_sort" value="0">
     <h4 class="text-left">Name:</h4>
-    <input type="text" name="product_name" placeholder="Product name" value="<?=$product_name;?>"><br><br>
+    <input type="text" class="form-control" name="product_name" placeholder="Product name" value="<?=$product_name;?>"><br>
     
     <h4 class="text-left">Price:</h4>
         <input type="radio" name="price_sort" value="low"<?=(($price_sort=='low')?' checked':''); ?>>Ascending<br>
-        <input type="radio" name="price_sort" value="high"<?=(($price_sort=='high')?' checked':''); ?>>Descending<br><br>
-        <input type="text" name="min_price" class="price-range" placeholder="Min $" value="<?=$min_price;?>"> to
-        <input type="text" name="max_price" class="price-range" placeholder="Max $" value="<?=$max_price;?>"><br><br>
+        <input type="radio" name="price_sort" value="high"<?=(($price_sort=='high')?' checked':''); ?>>Descending<br><br>     
+        <input type="text" name="min_price" class="price-range form-control" placeholder="Min $" value="<?=$min_price;?>"> to
+        <input type="text" name="max_price" class="price-range form-control" placeholder="Max $" value="<?=$max_price;?>">
+     
+    <br><br>
     
     <h4 class="text-left">Brand:</h4>
         <input type="radio" name="brand" value=""<?=(($b =='')?' checked':''); ?>>All<br>
