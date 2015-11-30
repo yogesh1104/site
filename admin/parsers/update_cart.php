@@ -15,7 +15,7 @@ if($mode=='removeone'){
         }
         
         if($item['quantity'] > 0){
-         $updated_items = $item;   
+         $updated_items[] = $item;   
         }
     }
 }
@@ -26,17 +26,17 @@ if($mode=='addone'){
             $item['quantity'] = $item['quantity'] + 1;
         }
         
-        $updated_items = $item;  
+        $updated_items[] = $item;  
     }
 }
 
-if(isset($updated_items['id']) || !empty($updated_items) ){
+if(!empty($updated_items)){
     $json_updated = json_encode($updated_items);
     $db->query("UPDATE cart SET items = '{$json_updated}' WHERE id = '{$cart_id}'");
     $_SESSION['success_flash'] = 'Your shopping cart has been updated!';
 }
 
-if(!isset($updated_items['id']) && !isset($updated_items['items']) ){   
+if(empty($updated_items)){   
     $db->query("DELETE FROM cart WHERE id='{$cart_id}'");
     setcookie(CART_COOKIE,'',1,"/",false,false); //first false should be $domain when deployed
 }
