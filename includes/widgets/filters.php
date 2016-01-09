@@ -13,7 +13,7 @@
     <input type="hidden" name="cat" value="<?=$cat_id;?>">
     <input type="hidden" name="price_sort" value="0">
     <h4 class="text-left">Name:</h4>
-    <input type="text" class="form-control" name="product_name" placeholder="Product name" value="<?=$product_name;?>"><br>
+    <input type="text" class="form-control" name="product_name" placeholder="Product name" value="<?=$product_name;?>" style="width: 180px;"><br>
     
     <h4 class="text-left">Price:</h4>
         <input type="radio" name="price_sort" value="low"<?=(($price_sort=='low')?' checked':''); ?>>Ascending<br>

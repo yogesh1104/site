@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2015 at 05:46 PM
+-- Generation Time: Jan 09, 2016 at 11:16 AM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -60,20 +60,17 @@ CREATE TABLE IF NOT EXISTS `cart` (
   `items` text COLLATE utf8_unicode_ci NOT NULL,
   `expire_date` datetime NOT NULL,
   `paid` tinyint(4) NOT NULL DEFAULT '0',
+  `shipped` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `items`, `expire_date`, `paid`) VALUES
-(1, '[{"id":"1","quantity":"1"},{"id":"2","quantity":"2"}]', '2015-12-18 18:28:50', 1),
-(3, '[{"id":"2","quantity":"1"}]', '2015-12-18 18:51:34', 1),
-(4, '[{"id":"2","quantity":"3"},{"id":"1","quantity":"2"}]', '2015-12-18 19:01:08', 1),
-(5, '[{"id":"2","quantity":"3"},{"id":"1","quantity":"2"}]', '2015-12-18 19:07:44', 1),
-(6, '[{"id":"2","quantity":"1"}]', '2015-12-21 12:01:32', 1),
-(9, '[{"id":"1","quantity":"1"},{"id":"2","quantity":"2"}]', '2015-12-21 13:43:50', 0);
+INSERT INTO `cart` (`id`, `items`, `expire_date`, `paid`, `shipped`) VALUES
+(13, '[{"id":"18","quantity":"2"},{"id":"17","quantity":"1"}]', '2015-12-22 18:36:21', 1, 0),
+(15, '[{"id":"16","quantity":"1"},{"id":"11","quantity":"1"}]', '2015-12-28 12:11:42', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -142,21 +139,21 @@ CREATE TABLE IF NOT EXISTS `products` (
 --
 
 INSERT INTO `products` (`id`, `title`, `price`, `list_price`, `brand`, `categories`, `image`, `description`, `featured`, `deleted`, `quantity`) VALUES
-(1, 'Gibson LP Less', '1390', '1500', 1, '31', '/site/images/products/Electric Guitar Gibson LP Less.jpg', 'Gibson Les Paul Less+ HCS 2015, electric guitar, G-Force tuning system, mahogany body, maple top, mahogany neck, rounded thomann C neck profile, rosewood fretboard, trapez inlays, 22 frets, 628mm scale, 46mm nut width, 1x 57 Classic and 57 Plus humbuckers, toggle switch, 2x volume and 1x tone controls, mini toggle coil split, nickel Tune-o-Matic bridge, finish: heritage cherry sunburst, incl. case, incl. thomann G-Force charger', 1, 0, 2),
-(2, 'Epiphone Les Paul', '319', '400', 2, '31', '/site/images/products/Electric Guitar Epiphone Les Paul Standard.jpg', 'Epiphone Les Paul Standard Ebony , electric guitar, mahognay body, mahogany neck, rosewood fretboard, 42,67 mm saddle width, thomann 628 mm scale lenght, 2x alnico classic humbucking pick-ups, Grover tuners, chrome hardware, trapez inlays, colour: ebony', 1, 0, 2),
+(1, 'Gibson LP Less', '1390', '1500', 1, '31', '/site/images/products/Electric Guitar Gibson LP Less.jpg', 'Gibson Les Paul Less+ HCS 2015, electric guitar, G-Force tuning system, mahogany body, maple top, mahogany neck, rounded thomann C neck profile, rosewood fretboard, trapez inlays, 22 frets, 628mm scale, 46mm nut width, 1x 57 Classic and 57 Plus humbuckers, toggle switch, 2x volume and 1x tone controls, mini toggle coil split, nickel Tune-o-Matic bridge, finish: heritage cherry sunburst, incl. case, incl. thomann G-Force charger', 1, 0, 1),
+(2, 'Epiphone Les Paul', '319', '400', 2, '31', '/site/images/products/Electric Guitar Epiphone Les Paul Standard.jpg', 'Epiphone Les Paul Standard Ebony , electric guitar, mahognay body, mahogany neck, rosewood fretboard, 42,67 mm saddle width, thomann 628 mm scale lenght, 2x alnico classic humbucking pick-ups, Grover tuners, chrome hardware, trapez inlays, colour: ebony', 1, 0, 0),
 (6, 'test', '466', '677', 2, '33', '/site/images/products/755ffad90b2d702a54890aaa4102b470.jpg', 'ergerhreh', 0, 1, 2),
 (7, 'Fender Special Strat', '1049', '1100', 4, '31', '/site/images/products/92b58e5028ce7cd60bcf1af2e31ad9aa.jpg', 'Fender American Special Stratocaster HSS OW e-guitar, alder body, maple neck, modern C-shape, rosewood fretboard, 22 jumbo frets, thomann scale 648mm, nut width 42.8mm,', 1, 0, 3),
 (8, 'Harley Benton DC580', '129', '150', 8, '31', '/site/images/products/2b92de0b28561e923f8389e4b94a5893.jpg', 'Harley Benton DC-580 CH Vintage Series, electric guitar, basswood body, set C-shape canadian maple neck, rosewood fretboard, fretboard thomann radius 350mm, crown inlays', 1, 0, 5),
 (9, 'Korg Pro King', '899', '1000', 7, '41', '/site/images/products/d9e466cd28135e09536c23a5bdf7e948.jpg', 'Korg King Korg, Analog Modeling Synthesizer, 61-Tasten semi-weighted Keyboard Velocity-sensitive, 24-Voices Polyphony, XMT (eXpanded Modeling Technology), 300 Presets thomann (200 Factory + 100 User)', 1, 0, 1),
 (10, 'Yamaha DTX400K', '449', '500', 9, '37', '/site/images/products/7ebd67e8fe79dbfa2a1e0841ef26de0d.jpg', 'Yamaha DTX400K E-Drum Set, for beginners with silent kick pedal KU100, DTX400 drum module with 169 sounds, 10 drum thomann kits, metronome, 10 coaching programs, 10 songs, stereo 1/4&quot; jack headphones/output, stereo 1/8&quot; jack Aux In', 1, 0, 3),
-(11, 'Traktor Kontrol D2', '489', '550', 10, '44', '/site/images/products/7c3f3ac1e455d41c08e493ee86f69a07.jpg', 'Native Instruments Traktor Kontrol D2, DJ Controller for Traktor-Software with high Resolution Color Display, 14 touch sensitive Controller, thomann 8 Multi-Color-Pads for Sample Playback, Cue-Points, Loops or Beat-Jumps, Touch-Strip, 4 touch sensitive Remix Deck-Fader and Rotary Knobs, FX-Unit with more than 30 Studio-Effects and Macros', 1, 0, 2),
+(11, 'Traktor Kontrol D2', '489', '550', 10, '44', '/site/images/products/7c3f3ac1e455d41c08e493ee86f69a07.jpg', 'Native Instruments Traktor Kontrol D2, DJ Controller for Traktor-Software with high Resolution Color Display, 14 touch sensitive Controller, thomann 8 Multi-Color-Pads for Sample Playback, Cue-Points, Loops or Beat-Jumps, Touch-Strip, 4 touch sensitive Remix Deck-Fader and Rotary Knobs, FX-Unit with more than 30 Studio-Effects and Macros', 1, 0, 1),
 (12, 'Pioneer XDJ-R1', '928', '1000', 11, '43', '/site/images/products/885170f569592f9f6c74b2091c6442d5.jpg', 'ioneer XDJ-R1, all in one DJ System, Double CD/USB Player, Remote Control via iPad, iPhone or iPod Touch, Jog thomann Wheels, 2 Channel Mixer, with Switches for Loops, HotCues, Samples and Sound Colour FX, DJ Software Recordbox included, dimensions 623 x 308 x 107mm, weight 6,8 Kg, Optional Bag', 1, 0, 1),
 (13, 'Mockingbird ST TR', '539', '600', 12, '31', '/site/images/products/abc36f70acbdae382d7599a7e1c3fce3.jpg', 'BC Rich Mockingbird ST Slash TR, e-guitar, mahogany body, AAA quilted maple veneer neck, ebony fingerboard, 24 jumbo thomann frets, Floyd Rose 1000 series tremolo, 2x duncan designed humbucker pick-ups', 1, 0, 2),
 (14, 'BC Rich JRV 7', '660', '700', 12, '31', '/site/images/products/a6b71a7ac68c1929cc643fe10e954be9.jpg', 'BC Rich JRV 7 TP, 7 string E-Guitar, Mahogany Body, Neck thru Maple Neck, Ebony Fretboard, 24 Frets, Scale thomann 648mm, 2 BC Rich B.D.S.M. Humbucker Pickups, Floyd Rose Tremolo Original, Grover Mini Rotomatic Tuners, Black HArdware, Finish Trans Purple', 0, 0, 2),
 (15, 'Fender Special Tele', '888', '1100', 4, '31', '/site/images/products/7bae32fbd195458b7efb08b0d1f71760.jpg', 'Fender American Special Telecaster Electric Guitar - alder body, modern &#039;C&#039; shape maple neck, 22 jumbo frets, 648mm thomann scale, 43mm nut width, chrome hardware, vintage style 3-saddle strings-thru-body Tele bridge, 2x Texas Special single coil pickups, 3-way switch, Greasebucket tone circuit', 0, 0, 1),
-(16, 'Fender SQ VM', '369', '400', 4, '33', '/site/images/products/0550d777390dcc2e2e01fa8cbea52215.jpg', '', 1, 0, 3),
-(17, 'Squier Affinity P-Bass', '288', '300', 4, '33', '/site/images/products/d4a27a0099c221ba4393787b92fca0da.jpg', 'Fender Squier Affinity P-Bass PJ OWT 2013, Affinity series, bass guitar, 4-string, alder body, maple neck (&quot;C&quot;-shape), longscale, thomann rosewood fretboard, 20 Medium Jumbo frets,', 0, 0, 3),
-(18, 'Yamaha C40', '109', '150', 9, '34', '/site/images/products/5b6ab8c432ba430a0ee06a80f3b72b15.jpg', 'Yamaha C40 classical guitar, spruce top, meranti back &amp; sides, nato neck, rosewood fretboard, rosewood bridge, 52 mm thomann sadddle width, 49-100 mm body depth, 650mm/25.59&quot; scale leght', 1, 0, 5),
+(16, 'Fender SQ VM', '369', '400', 4, '33', '/site/images/products/0550d777390dcc2e2e01fa8cbea52215.jpg', 'Fender Squier Vintage Modified Jazz bass 70 NT - maple body, maple C-shape neck, maple fingerboard, 20 frets, 2 thomann Fender-Designed Single-Coil Jazz Bass Pickups', 1, 0, 0),
+(17, 'Squier Affinity P-Bass', '288', '300', 4, '33', '/site/images/products/d4a27a0099c221ba4393787b92fca0da.jpg', 'Fender Squier Affinity P-Bass PJ OWT 2013, Affinity series, bass guitar, 4-string, alder body, maple neck (&quot;C&quot;-shape), longscale, thomann rosewood fretboard, 20 Medium Jumbo frets,', 0, 0, 2),
+(18, 'Yamaha C40', '109', '150', 9, '34', '/site/images/products/5b6ab8c432ba430a0ee06a80f3b72b15.jpg', 'Yamaha C40 classical guitar, spruce top, meranti back &amp; sides, nato neck, rosewood fretboard, rosewood bridge, 52 mm thomann sadddle width, 49-100 mm body depth, 650mm/25.59&quot; scale leght', 1, 0, 3),
 (19, 'Ibanez PCBE12', '225', '300', 13, '35', '/site/images/products/031d0b504ec4b5277b6b0f78a1f5b67e.jpg', 'Ibanez PCBE12-OPN, acoustic bass, spruce top, mahogany back &amp; sides, maple neck, rosewood bidge &amp; fretboard, 20 frets, thomann 32&quot; long scale, 43mm nut width, tortoiseshell rosette, chrome tuners, Ibanez under saddle pickup &amp; AEQ-2T preamp with tuner', 0, 0, 2),
 (20, 'Pearl EXX725BR', '749', '800', 14, '36', '/site/images/products/c3f2b0ef593d9dc25212ae8669ac9c3b.jpg', 'Pearl Export Standard Set - Jet Black #31, EXX725BR/C, Standard Version , wrapped shells in colour: Jet Black thomann (#31), chrome shell hardware, blended Asian Mahogany/Poplar shells for deeper and richer sound', 1, 0, 3),
 (21, 'Yamaha PSR-S770', '1049', '1100', 9, '40', '/site/images/products/61bfc1e880f059a2834d57ea07d6d961.jpg', 'Yamaha PSR-S770 Keyboard - 61 touch-responsive keys, 1346 sounds, 360 styles, 128-note polyphoniy, GM2/GS sound compatible, Mic/Guitar Input, thomann Drum Setup Function, DJ Styles, Real-Time Live Controllers and Arpeggio-Function, 160 MB internal expansion store, DSP Technology with Real Distortion and Real Reverb', 0, 0, 2),
@@ -187,7 +184,15 @@ CREATE TABLE IF NOT EXISTS `transactions` (
   `txn_type` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `txn_date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `transactions`
+--
+
+INSERT INTO `transactions` (`id`, `charge_id`, `cart_id`, `full_name`, `email`, `street`, `street2`, `city`, `state`, `zip_code`, `country`, `sub_total`, `tax`, `grand_total`, `description`, `txn_type`, `txn_date`) VALUES
+(1, 'ch_17A1m2En925kSxPuCJF9YGhh', 13, 'Alex Bratu', 'alexbratuu@gmail.com', 'Muzicii 16', '', 'Cluj', 'Cluj-Napoca', '400366', 'Romania', '506.00', '96', '602', '3 items from Music Gym.', 'charge', '2015-11-22 19:37:13'),
+(2, 'ch_17C6dBEn925kSxPuEFYba4PI', 15, 'John Doe', 'johnny_doe@gmail.com', 'Hollywood Avenue No. 5', '', 'Los Angeles', 'California', '45678', 'United States', '858.00', '163', '1021', '2 items from Music Gym.', 'charge', '2015-11-28 13:12:42');
 
 -- --------------------------------------------------------
 
@@ -204,15 +209,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `last_login` datetime NOT NULL,
   `permissions` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `full_name`, `email`, `password`, `join_date`, `last_login`, `permissions`) VALUES
-(3, 'Test Testo', 'test@test.com', '$2y$10$C01Q.7sNGzRsKFcM4MTyceMtcqrfnlS91vMaCk83WRCwmvItp70fK', '2015-11-07 18:03:42', '2015-11-07 17:12:57', 'editor,admin'),
-(4, 'Alex Bratu', 'alexbratuu@gmail.com', '$2y$10$0QoGdYw1PXDJkHdCF7aaS.OaUcOTVnP3RU/7hfSGSzGxyGHF.dbMe', '2015-11-07 18:13:38', '2015-11-21 14:22:05', 'admin,editor');
+(4, 'Alex Bratu', 'alexbratuu@gmail.com', '$2y$10$I1HeQNGu0x3HACZ.7XACPOk4WVVLSt87CFTs8vddJexxNeVUocZlS', '2015-11-07 18:13:38', '2016-01-04 19:56:05', 'admin'),
+(7, 'John Doe', 'johndoe@gmail.com', '$2y$10$QfGHpVuIy0qfRIuQV0iafeiAFt4oPdSFyi944yC3NNJgla4QGYcFy', '2016-01-04 21:00:34', '0000-00-00 00:00:00', 'editor');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
